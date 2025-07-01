@@ -1,3 +1,33 @@
+# Electrum - Custom
+This is a fork of Electrum in order to implement only acceptble commits
+
+In order to pull commits from de oficial repository follow below instructions:
+
+```
+# Check if Electrum remote is configured
+git remote -v
+
+# Configure Electrum remote (if not)
+git remote add electrum-remote https://github.com/spesmilo/electrum.git
+
+# Get remote commits
+git fetch electrum-remote
+
+# Inspect remote commits
+git log -10 electrum-remote/master
+
+# Checkout
+# In order to checkout the version 4.5.8 set its respective commitID
+git checkout 657199155526b825735dcd3e11aeb8179d5a91de
+
+# Create working branch
+# Use sufix "-NN", where -NN is the number of the customized patch
+git checkout -b feat/4.5.8-01
+
+# Cherry-Pick
+git cherry-pick commitID
+```
+
 # Electrum - Lightweight Bitcoin client
 
 ```

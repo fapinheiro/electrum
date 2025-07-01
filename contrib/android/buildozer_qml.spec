@@ -31,7 +31,21 @@ source.exclude_dirs =
     electrum/scripts,
     electrum/utils,
     electrum/gui/qt,
+    electrum/plugins/audio_modem,
+    electrum/plugins/bitbox02,
+    electrum/plugins/coldcard,
+    electrum/plugins/digitalbitbox,
+    electrum/plugins/jade,
+    electrum/plugins/keepkey,
+    electrum/plugins/ledger,
+    electrum/plugins/nwc,
     electrum/plugins/payserver,
+    electrum/plugins/revealer,
+    electrum/plugins/safe_t,
+    electrum/plugins/swapserver,
+    electrum/plugins/timelock_recovery,
+    electrum/plugins/trezor,
+    electrum/plugins/watchtower,
     packages/qdarkstyle,
     packages/qtpy,
     packages/bin,
@@ -65,7 +79,6 @@ requirements =
     cryptography,
     pyqt6sip,
     pyqt6,
-    pillow,
     libzbar
 
 # (str) Presplash of the application
@@ -88,7 +101,7 @@ fullscreen = False
 #
 
 # (list) Permissions
-android.permissions = INTERNET, CAMERA, WRITE_EXTERNAL_STORAGE
+android.permissions = INTERNET, CAMERA, WRITE_EXTERNAL_STORAGE, POST_NOTIFICATIONS
 
 # (int) Android API to use  (compileSdkVersion)
 # note: when changing, Dockerfile also needs to be changed to install corresponding build tools
@@ -143,13 +156,20 @@ android.accept_sdk_license = True
 android.add_jars = .buildozer/android/platform/*/build/libs_collections/Electrum/jar/*.jar
 
 
+android.add_aars =
+    contrib/android/.cache/aars/BarcodeScannerView.aar,
+    contrib/android/.cache/aars/CameraView.aar,
+    contrib/android/.cache/aars/zxing-cpp.aar
+
+
 # (list) List of Java files to add to the android project (can be java or a
 # directory containing the files)
 android.add_src = electrum/gui/qml/java_classes/
 
+# kotlin-stdlib is required for zxing-cpp (BarcodeScannerView)
 android.gradle_dependencies =
     com.android.support:support-compat:28.0.0,
-    me.dm7.barcodescanner:zxing:1.9.8
+    org.jetbrains.kotlin:kotlin-stdlib:1.8.22
 
 android.add_activities = org.electrum.qr.SimpleScannerActivity
 
@@ -182,7 +202,7 @@ android.manifest.intent_filters = contrib/android/bitcoin_intent.xml
 # (str) launchMode to set for the main activity
 android.manifest.launch_mode = singleTask
 
-# (list) Android additionnal libraries to copy into libs/armeabi
+# (list) Android additional libraries to copy into libs/armeabi
 #android.add_libs_armeabi = lib/android/*.so
 
 # (bool) Indicate whether the screen should stay on
